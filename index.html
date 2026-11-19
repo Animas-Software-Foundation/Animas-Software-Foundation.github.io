@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animas Software Foundation — Creature-Collecting RPGs, Small &amp; Portable</title>
+  <meta name="description" content="Animas Software Foundation builds open-source, portable creature-collecting RPGs powered by Godot 4." />
+  <style>
+    :root {
+      --bg: #111015;
+      --surface: #191720;
+      --surface-hover: #211e2b;
+      --border: #2c2838;
+      --text: #f3f1f7;
+      --muted: #a6a0b5;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.14);
+      --gold: #facc15;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .flame-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(249, 115, 22, 0.35);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--gold);
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.28);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #111015;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #fb8532;
+      border-color: #fb8532;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: #3e384f;
+    }
+
+    /* Sections */
+    section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 0.98rem;
+    }
+
+    /* Project Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .card-title a {
+      color: var(--text);
+    }
+
+    .card-title a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .tag-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .tag.live {
+      color: var(--accent);
+      border-color: rgba(249, 115, 22, 0.4);
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 0.96rem;
+    }
+
+    .card-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    /* Pillars Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .mini-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 36px 0 48px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="./">
+        <span class="flame-badge">A</span>
+        <span>Animas Software Foundation</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./Animas-Ember/">Animas: Ember</a>
+        <a href="#philosophy">Portable Design</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://pixel-pulse.dev" target="_blank" rel="noopener">Pixel-Pulse</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="pill">Open-Source Monster-Catching &bull; Pixel-Pulse Ecosystem</span>
+      <h1>Creature-collecting RPGs, built small and portable.</h1>
+      <p>
+        Animas Software Foundation develops classic handheld-inspired RPGs, custom installers, and cross-platform tools powered by Godot 4 and Rust.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="./Animas-Ember/">
+          Play Animas: Ember &rarr;
+        </a>
+        <a class="btn btn-secondary" href="https://github.com" target="_blank" rel="noopener">
+          View GitHub Org
+        </a>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Flagship Project</h2>
+      <p class="section-sub">Engineered for instant play across Windows, macOS, Linux, and Android.</p>
+
+      <article class="card">
+        <div class="card-header">
+          <div class="card-title"><a href="./Animas-Ember/">Animas: Ember</a></div>
+          <div class="tag-group">
+            <span class="tag live">v0.2.0 Latest</span>
+            <span class="tag">Godot 4.7+</span>
+            <span class="tag">151 Animas</span>
+          </div>
+        </div>
+        <p>
+          A turn-based creature-collecting RPG in the spirit of classic handheld monster-catching adventures. Explore overworld routes, battle trainers, collect 151 unique Animas, and carry your save folder anywhere on a USB stick.
+        </p>
+        <div class="card-links">
+          <a href="./Animas-Ember/">Official Site &amp; Downloads &rarr;</a>
+          <a href="https://github.com/Animas-Ember/releases" target="_blank" rel="noopener">Release Notes &amp; Checksums &rarr;</a>
+          <a href="https://github.com/Animas-Ember" target="_blank" rel="noopener">Source Code &rarr;</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="philosophy">
+      <h2>Small. Portable. Ours.</h2>
+      <p class="section-sub">Every release follows the core Pixel-Pulse engineering standard.</p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Zero System Bloat</h3>
+          <p>Nothing is written to AppData or the Windows Registry. Your saves and settings live right beside the game executable.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Native Rust Installers</h3>
+          <p>Custom self-extracting setup wizards and portable archives built for Windows, Linux, and macOS with zero admin rights needed.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Multi-Architecture CI</h3>
+          <p>Automated builds with SHA256 checksums across x86_64, x86_32, arm64, arm32, and universal Android APKs.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>&copy; 2026 Animas Software Foundation &bull; Part of Pixel-Pulse</span>
+    <span>
+      <a href="https://pixel-pulse.dev" target="_blank" rel="noopener">Cob Language</a> &middot;
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </span>
+  </footer>
+
+</body>
+</html>
